@@ -4,7 +4,6 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState('');
 
-  // Function to handle adding a new task
   const addTodo = () => {
     if (newTodo.trim()) {
       setTodos([...todos, { id: Date.now(), text: newTodo, completed: false }]);
@@ -12,7 +11,6 @@ function App() {
     }
   };
 
-  // Function to handle toggling the completion of a task
   const toggleTodo = (id) => {
     const updatedTodos = todos.map((todo) =>
       todo.id === id ? { ...todo, completed: !todo.completed } : todo
@@ -20,41 +18,69 @@ function App() {
     setTodos(updatedTodos);
   };
 
-  // Function to handle deleting a task
   const deleteTodo = (id) => {
     const updatedTodos = todos.filter((todo) => todo.id !== id);
     setTodos(updatedTodos);
   };
 
   return (
-    <div>
-      <h1>To-Do App</h1>
+    <div style={{ maxWidth: '500px', margin: '0 auto', padding: '20px', fontFamily: 'Arial, sans-serif' }}>
+      <h1 style={{ textAlign: 'center', marginBottom: '20px', color: '#007bff' }}>To-Do App</h1>
 
-      {/* Input for adding a new task */}
-      <input
-        type="text"
-        value={newTodo}
-        onChange={(e) => setNewTodo(e.target.value)}
-        placeholder="Add a new task"
-      />
+      <div style={{ display: 'flex', marginBottom: '10px' }}>
+        <input
+          type="text"
+          value={newTodo}
+          onChange={(e) => setNewTodo(e.target.value)}
+          placeholder="Add a new task"
+          style={{ flex: '1', padding: '8px', fontSize: '16px' }}
+        />
+        <button
+          onClick={addTodo}
+          style={{
+            padding: '8px 16px',
+            fontSize: '16px',
+            backgroundColor: '#007bff',
+            color: 'white',
+            border: 'none',
+            cursor: 'pointer',
+          }}
+        >
+          Add Task
+        </button>
+      </div>
 
-      {/* Button to add a new task */}
-      <button onClick={addTodo}>Add Task</button>
-
-      {/* List of tasks */}
-      <ul>
+      <ul style={{ listStyleType: 'none', padding: '0' }}>
         {todos.map((todo) => (
-          <li key={todo.id} style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}>
-            {/* Display the task text */}
+          <li
+            key={todo.id}
+            style={{
+              marginBottom: '10px',
+              padding: '10px',
+              border: '1px solid #ddd',
+              display: 'flex',
+              alignItems: 'center',
+              backgroundColor: todo.completed ? '#f0f0f0' : 'inherit',
+              textDecoration: todo.completed ? 'line-through' : 'none',
+            }}
+          >
             {todo.text}
 
-            {/* Button to toggle the completion of the task */}
-            <button onClick={() => toggleTodo(todo.id)}>
-              {todo.completed ? 'Mark as Incomplete' : 'Mark as Complete'}
-            </button>
+            <div style={{ marginLeft: 'auto' }}>
+              <button
+                onClick={() => toggleTodo(todo.id)}
+                style={{ marginRight: '5px', backgroundColor: '#17a2b8', padding: '8px 12px', fontSize: '14px', color: 'white', border: 'none', cursor: 'pointer' }}
+              >
+                {todo.completed ? 'Mark Incomplete' : 'Mark Complete'}
+              </button>
 
-            {/* Button to delete the task */}
-            <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+              <button
+                onClick={() => deleteTodo(todo.id)}
+                style={{ backgroundColor: '#dc3545', padding: '8px 12px', fontSize: '14px', color: 'white', border: 'none', cursor: 'pointer' }}
+              >
+                Delete
+              </button>
+            </div>
           </li>
         ))}
       </ul>

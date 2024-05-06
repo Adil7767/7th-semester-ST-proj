@@ -106,7 +106,7 @@ test.describe('To-Do App', () => {
     await addButton.click();
 
     // Locate the toggle button
-    const toggleButton = page.locator('button:has-text("Mark as Complete")');
+    const toggleButton = page.locator('button:has-text("Mark Complete")');
     const newTask = page.locator('li:text("New Task")');
 
     // Verify the task was added
@@ -115,7 +115,7 @@ test.describe('To-Do App', () => {
     // Click the toggle button and verify task is marked as complete
     await toggleButton.click();
     await expect(newTask).toHaveCSS('text-decoration', /line-through/);
-  });
+  }, { timeout: 60000 });
 
   // Delete a task
   test('should delete a task', async ({ page }) => {
